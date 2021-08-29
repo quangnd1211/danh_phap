@@ -1,0 +1,3508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-size: 16px;
+            color: #000;
+            background-color: #FFF;
+        }
+        #mobile-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #fff;
+            z-index: 20;
+            display: none;
+            box-shadow: 0 0 2px rgba(0,0,0,0.25);
+            pointer-events: none;
+            }
+        #mobile-bar > * {
+            pointer-events: auto;
+        }
+        #mobile-bar .menu-button {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 8px;
+            left: 12px;
+            background: url("images/menu.png") center center no-repeat;
+            background-size: 24px;
+        }
+        #main {
+            z-index: 1;
+            padding: 0 60px 30px;
+            overflow-x: hidden;
+        }
+        #main.fix-sidebar {
+            position: static;
+        }
+        .sidebar {
+            position: fixed;
+            z-index: 10;
+            top: 61px;
+            left: 0;
+            bottom: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .sidebar-inner{
+            width: 240px;
+            padding: 35px 0px 60px 20px;
+        }
+        .sidebar ul{
+            list-style-type: none;
+            margin: 0;
+            line-height: 1.5em;
+            padding-left: 1em;
+        }
+        .sidebar li {
+            margin-top: 0.5em;
+        }       
+        a {
+            text-decoration: none;
+            color: #4f5959
+        }
+        caption {
+            font-weight: 800;
+            padding-bottom: 5px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .content{
+            position: relative;
+            padding: 35px 0;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 50px;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th{
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+        tr:nth-child(even){background-color: #f2f2f2;}
+        /* tr:hover {background-color: #ddd;} */
+        @media screen and (max-width: 900px) {
+            body {
+                -webkit-text-size-adjust: none;
+                font-size: 14px;
+            }
+            #header {
+                display: none;
+            }
+            .sidebar {
+                position: fixed;
+                background-color: #f9f9f9;
+                height: 100%;
+                top: 40px;
+                left: 0;
+                box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+                -webkit-transform: translate(-280px, 0);
+                transform: translate(-280px, 0);
+            }
+            a:hover,
+            a.current {
+                border-bottom: 2px solid #42b983;
+            }
+            #mobile-bar {
+                display: block;
+            }
+            #main {
+                padding: 2em 1.4em 0;
+            }
+            .highlight pre {
+                padding: 1.2em 1em;
+            }
+            .content {
+                padding-left: 0;
+                overflow-x: auto;
+                margin:auto !important;
+            }
+            .content h2:before,
+            .content h3:before {
+                content: "";
+                display: block;
+                margin-top: -75px;
+                height: 75px;
+                visibility: hidden;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            .sidebar {
+                position: fixed;
+                background-color: #f9f9f9;
+                height: 100%;
+                top: 40px;
+                left: 0;
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
+                -webkit-transform: translate(-280px, 0);
+                transform: translate(-280px, 0);
+            }
+            .sidebar .sidebar-inner {
+                padding: 60px 10px 30px 20px;
+                box-sizing: border-box;
+            }
+            .sidebar .sidebar-inner-index {
+                padding: 10px 10px 10px 20px;
+            }
+            .sidebar .search-query {
+                width: 200px;
+                margin-bottom: 10px;
+            }
+            .sidebar .main-menu {
+                display: block;
+            }
+            .sidebar.open {
+                -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+            }
+        }
+        @media screen and (max-width: 1300px) {
+            .content {
+                margin-left: 180px;
+            }
+        }
+    </style>
+    <script>
+        function toggleMenu(){
+            var sidebar = document.getElementById('sidebar')
+            sidebar.classList.toggle("open");
+        }
+        function hideMenu() {
+            var sidebar = document.getElementById('sidebar')
+            sidebar.classList.remove("open");
+        }
+    </script>
+</head>
+<body>
+    <div id="mobile-bar">
+        <a class="menu-button" href="#" onclick="toggleMenu()"></a>
+        <a class="logo" href="/"></a>
+    </div>
+    <div id ="main" class="fix-sidebar">
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-inner">
+                <div class="list">
+                    <h2><a href="#i0" onclick="hideMenu()">#VÔ CƠ</a></h2>
+                    <ul class="menu-root">
+                        <li><a href="#i1" onclick="hideMenu()">I.	Bảng tên nguyên tố hoá học </a></li>
+                        <li><a href="#i2" onclick="hideMenu()">II.	Bảng tên đơn chất</a</li>
+                        <li><a href="#i3" onclick="hideMenu()">III.	Hợp chất</a></li>
+                            <ul>
+                                <li><a href="#i31" onclick="hideMenu()">1.	OXIDE </a></li>
+                                <li><a href="#i32" onclick="hideMenu()">2.	ACID /ˈæsɪd/ </a></li>
+                                <li><a href="#i33" onclick="hideMenu()">3.	BASE /beɪs/</a></li>
+                                <li><a href="#i34" onclick="hideMenu()">4.	Muối</a></li>
+                            </ul>
+                    </ul>
+
+                    <h2><a href="#h0" onclick="hideMenu()">#HỮU CƠ</a></h2>
+                    <ul class="menu-root">
+                        <li><a href="#h1" onclick="hideMenu()">1 ALKANE</a></li>
+                        <li><a href="#h2" onclick="hideMenu()">2. ALKENE</a</li>
+                        <li><a href="#h3" onclick="hideMenu()">3. ALKYNE</a></li>
+                        <li><a href="#h4" onclick="hideMenu()">4. DẪN XUẤT HIĐROCABON</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <h1 id="i0">VÔ CƠ</h1>
+            <h2 id="i1">Bảng tên nguyên tố hoá học</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Số proton</th>
+                        <th>KHHH</th>
+                        <th>Tên tiếng việt</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>H</p>
+                        </td>
+                        <td>
+                            <p>Hiđro</p>
+                        </td>
+                        <td>
+                            <p>Hydrogen</p>
+                        </td>
+                        <td>
+                            <p>/ˈhaɪdrədʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>2</p>
+                        </td>
+                        <td>
+                            <p>He</p>
+                        </td>
+                        <td>
+                            <p>Heli</p>
+                        </td>
+                        <td>
+                            <p>Helium</p>
+                        </td>
+                        <td>
+                            <p>/ˈhiːliəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/helium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>3</p>
+                        </td>
+                        <td>
+                            <p>Li</p>
+                        </td>
+                        <td>
+                            <p>Liti</p>
+                        </td>
+                        <td>
+                            <p>Lithium</p>
+                        </td>
+                        <td>
+                            <p>/ˈlɪθiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Lithium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>4</p>
+                        </td>
+                        <td>
+                            <p>Be</p>
+                        </td>
+                        <td>
+                            <p>Beri</p>
+                        </td>
+                        <td>
+                            <p>Beryllium</p>
+                        </td>
+                        <td>
+                            <p>/bəˈrɪliəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/BERYLLIUM.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>5</p>
+                        </td>
+                        <td>
+                            <p>B</p>
+                        </td>
+                        <td>
+                            <p>Bo</p>
+                        </td>
+                        <td>
+                            <p>Boron</p>
+                        </td>
+                        <td>
+                            <p>/ˈbɔːrɒn/</p>
+                            <p>/ˈbɔːrɑːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/BORON.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>6</p>
+                        </td>
+                        <td>
+                            <p>C</p>
+                        </td>
+                        <td>
+                            <p>Cacbon</p>
+                        </td>
+                        <td>
+                            <p>Carbon</p>
+                        </td>
+                        <td>
+                            <p>/ˈkɑːbən/</p>
+                            <p>/ˈkɑːrbən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/carbon.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>7</p>
+                        </td>
+                        <td>
+                            <p>N</p>
+                        </td>
+                        <td>
+                            <p>Nitơ</p>
+                        </td>
+                        <td>
+                            <p>Nitrogen</p>
+                        </td>
+                        <td>
+                            <p>/ˈnaɪtrədʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitrogen.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>8</p>
+                        </td>
+                        <td>
+                            <p>O</p>
+                        </td>
+                        <td>
+                            <p>Oxi</p>
+                        </td>
+                        <td>
+                            <p>Oxygen</p>
+                        </td>
+                        <td>
+                            <p>/ˈɒksɪdʒən/</p>
+                            <p>/ˈɑːksɪdʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/OXYGEN.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>9</p>
+                        </td>
+                        <td>
+                            <p>F</p>
+                        </td>
+                        <td>
+                            <p>Flo</p>
+                        </td>
+                        <td>
+                            <p>Fluorine</p>
+                        </td>
+                        <td>
+                            <p>/ˈflɔːriːn/</p>
+                            <p>/ˈflʊəriːn/</p>
+                            <p>/ˈflʊriːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/FLUORINE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>10</p>
+                        </td>
+                        <td>
+                            <p>Ne</p>
+                        </td>
+                        <td>
+                            <p>Neon</p>
+                        </td>
+                        <td>
+                            <p>Neon</p>
+                        </td>
+                        <td>
+                            <p>/ˈniːɒn/</p>
+                            <p>/ˈniːɑːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/neon.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>11</p>
+                        </td>
+                        <td>
+                            <p>Na</p>
+                        </td>
+                        <td>
+                            <p>Natri</p>
+                        </td>
+                        <td>
+                            <p>Sodium</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sodium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>12</p>
+                        </td>
+                        <td>
+                            <p>Mg</p>
+                        </td>
+                        <td>
+                            <p>Magie</p>
+                        </td>
+                        <td>
+                            <p>Magnesium</p>
+                        </td>
+                        <td>
+                            <p>/mæɡˈniːziəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/magnesium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>13</p>
+                        </td>
+                        <td>
+                            <p>Al</p>
+                        </td>
+                        <td>
+                            <p>Nhôm</p>
+                        </td>
+                        <td>
+                            <p>Aluminium</p>
+                        </td>
+                        <td>
+                            <p>/ˌæljəˈmɪniəm/</p>
+                            <p>/ˌæləˈmɪniəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Aluminium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>14</p>
+                        </td>
+                        <td>
+                            <p>Si</p>
+                        </td>
+                        <td>
+                            <p>Silic</p>
+                        </td>
+                        <td>
+                            <p>Silicon</p>
+                        </td>
+                        <td>
+                            <p>/ˈsɪlɪkən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SILICON.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>15</p>
+                        </td>
+                        <td>
+                            <p>P</p>
+                        </td>
+                        <td>
+                            <p>Photpho</p>
+                        </td>
+                        <td>
+                            <p>Phosphorus</p>
+                        </td>
+                        <td>
+                            <p>/ˈfɒsfərəs/</p>
+                            <p>/ˈfɑːsfərəs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/phosphorus.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>16</p>
+                        </td>
+                        <td>
+                            <p>S</p>
+                        </td>
+                        <td>
+                            <p>Lưu huỳnh</p>
+                        </td>
+                        <td>
+                            <p>Sulfur</p>
+                        </td>
+                        <td>
+                            <p>/ˈsʌlfə(r)/</p>
+                            <p>/ˈsʌlfər/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfur.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>17</p>
+                        </td>
+                        <td>
+                            <p>Cl</p>
+                        </td>
+                        <td>
+                            <p>Clo</p>
+                        </td>
+                        <td>
+                            <p>Chlorine</p>
+                        </td>
+                        <td>
+                            <p>/ˈklɔːriːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/chlorine.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>18</p>
+                        </td>
+                        <td>
+                            <p>Ar</p>
+                        </td>
+                        <td>
+                            <p>Argon</p>
+                        </td>
+                        <td>
+                            <p>Argon</p>
+                        </td>
+                        <td>
+                            <p>/ˈɑːɡɒn/</p>
+                            <p>/ˈɑːrɡɑːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Argon.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>19</p>
+                        </td>
+                        <td>
+                            <p>K</p>
+                        </td>
+                        <td>
+                            <p>Kali</p>
+                        </td>
+                        <td>
+                            <p>Potassium</p>
+                        </td>
+                        <td>
+                            <p>/pəˈtæsiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/potassium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>20</p>
+                        </td>
+                        <td>
+                            <p>Ca</p>
+                        </td>
+                        <td>
+                            <p>Canxi</p>
+                        </td>
+                        <td>
+                            <p>Calcium</p>
+                        </td>
+                        <td>
+                            <p>/ˈkælsiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/calcium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>24</p>
+                        </td>
+                        <td>
+                            <p>Cr</p>
+                        </td>
+                        <td>
+                            <p>Crom</p>
+                        </td>
+                        <td>
+                            <p>Chromium</p>
+                        </td>
+                        <td>
+                            <p>/ˈkrəʊmiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/chromium.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>25</p>
+                        </td>
+                        <td>
+                            <p>Mn</p>
+                        </td>
+                        <td>
+                            <p>Mangan</p>
+                        </td>
+                        <td>
+                            <p>Manganese</p>
+                        </td>
+                        <td>
+                            <p>/ˈmæŋɡəniːz/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Manganese.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>26</p>
+                        </td>
+                        <td>
+                            <p>Fe</p>
+                        </td>
+                        <td>
+                            <p>Sắt</p>
+                        </td>
+                        <td>
+                            <p>Iron</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪərn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/iron.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>29</p>
+                        </td>
+                        <td>
+                            <p>Cu</p>
+                        </td>
+                        <td>
+                            <p>Đồng</p>
+                        </td>
+                        <td>
+                            <p>Copper</p>
+                        </td>
+                        <td>
+                            <p>/ˈkɒpə(r)/</p>
+                            <p>/ˈkɑːpər/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/copper.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>30</p>
+                        </td>
+                        <td>
+                            <p>Zn</p>
+                        </td>
+                        <td>
+                            <p>Kẽm</p>
+                        </td>
+                        <td>
+                            <p>Zinc</p>
+                        </td>
+                        <td>
+                            <p>/zɪŋk/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/zinc.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>35</p>
+                        </td>
+                        <td>
+                            <p>Br</p>
+                        </td>
+                        <td>
+                            <p>Brom</p>
+                        </td>
+                        <td>
+                            <p>Bromine</p>
+                        </td>
+                        <td>
+                            <p>/ˈbrəʊmiːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/BROMINE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>47</p>
+                        </td>
+                        <td>
+                            <p>Ag</p>
+                        </td>
+                        <td>
+                            <p>Bạc</p>
+                        </td>
+                        <td>
+                            <p>Silver</p>
+                        </td>
+                        <td>
+                            <p>/ˈsɪlvə(r)/</p>
+                            <p>/ˈsɪlvər/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/silver.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>56</p>
+                        </td>
+                        <td>
+                            <p>Bari</p>
+                        </td>
+                        <td>
+                            <p>Ba</p>
+                        </td>
+                        <td>
+                            <p>Barium</p>
+                        </td>
+                        <td>
+                            <p>/ˈbeəriəm/</p>
+                            <p>/ˈberiəm/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/BARIUM.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>80</p>
+                        </td>
+                        <td>
+                            <p>Thuỷ ngân</p>
+                        </td>
+                        <td>
+                            <p>Hg</p>
+                        </td>
+                        <td>
+                            <p>Mercury</p>
+                        </td>
+                        <td>
+                            <p>/ˈmɜːkjəri/</p>
+                            <p>/ˈmɜːrkjəri/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/mercury.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>82</p>
+                        </td>
+                        <td>
+                            <p>Chì</p>
+                        </td>
+                        <td>
+                            <p>Pb</p>
+                        </td>
+                        <td>
+                            <p>Lead</p>
+                        </td>
+                        <td>
+                            <p>/liːd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/LEAD.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="i2">II.	Bảng tên đơn chất</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>C&ocirc;ng thức hoá học</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n ti&ecirc;́ng vi&ecirc;̣t</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n IUPAC</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>		
+                    <tr>
+                        <td>
+                            <p>H<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Khí hiđro</p>
+                        </td>
+                        <td>
+                            <p>Hydrogen</p>
+                        </td>
+                        <td>
+                            <p>/ˈhaɪdrədʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>O<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Khí oxi</p>
+                        </td>
+                        <td>
+                            <p>Oxygen</p>
+                        </td>
+                        <td>
+                            <p>/ˈɒksɪdʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/OXYGEN.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>N<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Khí nitơ</p>
+                        </td>
+                        <td>
+                            <p>Nitrogen</p>
+                        </td>
+                        <td>
+                            <p>/ˈnaɪtrədʒən/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitrogen.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>F<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Khí flo</p>
+                        </td>
+                        <td>
+                            <p>Fluorine</p>
+                        </td>
+                        <td>
+                            <p>/ˈflɔːriːn/&nbsp;</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/FLUORINE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Cl<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Khí clo</p>
+                        </td>
+                        <td>
+                            <p>Chlorine</p>
+                        </td>
+                        <td>
+                            <p>/ˈklɔːriːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/chlorine.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Br<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Brom</p>
+                        </td>
+                        <td>
+                            <p>Bromine</p>
+                        </td>
+                        <td>
+                            <p>/ˈbrəʊmiːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/BROMINE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>I<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Iot</p>
+                        </td>
+                        <td>
+                            <p>Iodine</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪədaɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/iodine.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>S</p>
+                        </td>
+                        <td>
+                            <p>Lưu huỳnh</p>
+                        </td>
+                        <td>
+                            <p>Sulfur</p>
+                        </td>
+                        <td>
+                            <p>/ˈsʌlfə(r)/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfur.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>P</p>
+                        </td>
+                        <td>
+                            <p>Photpho</p>
+                        </td>
+                        <td>
+                            <p>Phosphorous</p>
+                        </td>
+                        <td>
+                            <p>/ˈfɑːsfərəs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/phosphorus.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2 id="i3">III.	Hợp chất</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>Oxide</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈɑːksaɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/OXIDE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Acid</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Base</strong></p>
+                        </td>
+                        <td>
+                            <p>&nbsp;&nbsp;/beɪs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/base.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Mu&ocirc;́i</strong></p>
+                        </td>
+                        <td>
+                            <p><strong>&nbsp;</strong></p>
+                        </td>
+                        <td>
+                            <p><strong>&nbsp;</strong></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="i31">1.	OXIDE </h2>
+            <table>
+                <caption>Basic oxide /ˈbeɪ.sɪk ˈɑːksaɪd/</caption>
+                <thead>
+                    <tr>
+                        <th>Công thức hoá học</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>Na<sub>2</sub>O</p>
+                        </td>
+                        <td>
+                            <p>Sodium oxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈsoʊ.di.əm ˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>K<sub>2</sub>O</p>
+                        </td>
+                        <td>
+                            <p>Potassium oxide</p>
+                        </td>
+                        <td>
+                            <p>/pəˈt&aelig;siəm ˈɑːk.saɪd /</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CaO</p>
+                        </td>
+                        <td>
+                            <p>Calcium oxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈk&aelig;l.si.əm ˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Calcium oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>MgO</p>
+                        </td>
+                        <td>
+                            <p>Magnesium oxide</p>
+                        </td>
+                        <td>
+                            <p>/m&aelig;ɡˈniː.zi.əmˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Magnesium oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CuO</p>
+                        </td>
+                        <td>
+                            <p>Copper (II) oxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈkɑːpər tuː ˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>FeO</p>
+                        </td>
+                        <td>
+                            <p>iron (II) oxide</p>
+                            <p>ferric oxide</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪərn tu: ˈɑːk.saɪd/</p>
+                            <p>/ˈferəs ˈɑːk.saɪd /</p>
+                            <p><strong>&nbsp;</strong></p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/iron (II) oxide.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/ferric oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Fe<sub>2</sub>O<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>iron (III) oxide</p>
+                            <p>ferrous oxide</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪərn &theta;riːˈɑːk.saɪd/</p>
+                            <p>/ ˈferik ˈɑːk.saɪd /</p>
+                            <p><strong>&nbsp;</strong></p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/iron (III) oxide.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/ferrous oxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <table>
+                <caption>Acidic oxide /əˈsɪd.ɪk ˈɑːksaɪd/</caption>
+                <thead>
+                    <tr>
+                        <th>Công thức hoá học</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>CO<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>carbon dioxide</p>
+                        </td>
+                        <td>
+                            <p>/ˌkɑːr.bən daɪˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CARBON DIOXIDE .mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>SO<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>sulfur dioxide</p>
+                        </td>
+                        <td>
+                            <p>/ˌsʌl.fɚ daɪˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SULPHUR DIOXIDE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>SO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Sulfur trioxide</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>/ˌsʌl.fɚ traɪˈɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sulfur trioxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>N<sub>2</sub>O<sub>5</sub></p>
+                        </td>
+                        <td>
+                            <p>Nitrogen pentoxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈnaɪ.trə.dʒən pent ɑːk.saɪd /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Nitrogen pentoxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>P<sub>2</sub>O<sub>5</sub></p>
+                        </td>
+                        <td>
+                            <p>Diphosphorus pentoxide</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>/dɑɪ ˈfɑːsfərəs pent ˈɑːk.saɪd /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Diphosphorus pentoxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="i32">2.	ACID /ˈæsɪd/</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Công thức hoá học</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>HCl</p>
+                        </td>
+                        <td>
+                            <p>hydrochloric acid</p>
+                        </td>
+                        <td>
+                            <p>/ˌhaɪdrəˌklɒrɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrochloric acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HBr</p>
+                        </td>
+                        <td>
+                            <p>hydrobromic acid</p>
+                        </td>
+                        <td>
+                            <p>/ˌhaɪdrəˌbrəʊmɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrobromic acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>H<sub>2</sub>S</p>
+                        </td>
+                        <td>
+                            <p>hydrosulfuric acid</p>
+                        </td>
+                        <td>
+                            <p>/ˈhaɪdrəʊsʌlˌfjʊərɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrosulfuric acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>H<sub>2</sub>SO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>sulfuric acid</p>
+                        </td>
+                        <td>
+                            <p>/sʌlˌfjʊərɪk ˈ&aelig;sɪd/</p>
+                            <p>/sʌlˌfjʊrɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfuric acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>H<sub>2</sub>SO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>sulfurous acid</p>
+                            <p>sulphurous acid</p>
+                        </td>
+                        <td>
+                            <p>/ˈsʌlfərəs ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfurous acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HNO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>nitric acid</p>
+                        </td>
+                        <td>
+                            <p>/ˌnaɪtrɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitric acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HNO<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>nitrous acid</p>
+                        </td>
+                        <td>
+                            <p>/ˌnaɪtrəs ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitrous acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>H<sub>3</sub>PO&shy;<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>phosphoric acid</p>
+                        </td>
+                        <td>
+                            <p>/fɒsˌfɒrɪk ˈ&aelig;sɪd/&nbsp;</p>
+                            <p>/fɑːsˌfɔːrɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/phosphoric acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CO<sub>2</sub> + H<sub>2</sub>O (H<sub>2</sub>CO<sub>3</sub>)</p>
+                        </td>
+                        <td>
+                            <p>carbonic acid</p>
+                        </td>
+                        <td>
+                            <p>/kɑːˌbɒnɪk ˈ&aelig;sɪd/&nbsp;</p>
+                            <p>/kɑːrˌbɑːnɪk ˈ&aelig;sɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CARBONIC ACID.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="i33">3.	BASE /beɪs/ </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Công thức hoá học</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>NaOH</p>
+                        </td>
+                        <td>
+                            <p>Sodium hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/ˌsoʊ.di.əm haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SODIUM HYDROXIDE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>KOH</p>
+                        </td>
+                        <td>
+                            <p>Potassium hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/pəˈt&aelig;siəm haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Ca(OH)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Calcium hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/ˌk&aelig;l.si.əm haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CALCIUM HYDROXIDE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Ba(OH)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>barium hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈber.i.əm haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/barium hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Mg(OH)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Magnesium hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/m&aelig;ɡˈniː.zi.əm haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Magnesium hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Cu(OH)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Copper (II) hydroxide</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>/ˈkɑːpər tu: haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Fe(OH)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (II) hydroxide</p>
+                            <p>&nbsp;</p>
+                            <p>ferric hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪərn tu: haɪˈdrɑːk.saɪd/</p>
+                            <p>/ˈfer.ɪk haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (II) hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/ferric hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Fe(OH)<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (III) hydroxide</p>
+                            <p>&nbsp;</p>
+                            <p>ferrous hydroxide</p>
+                        </td>
+                        <td>
+                            <p>/ˈaɪərn &theta;riː haɪˈdrɑːk.saɪd/</p>
+                            <p>/ˈfer.əs haɪˈdrɑːk.saɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (III) hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/ferrous hydroxide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="i34">4.	Muối</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gốc axit</th>
+                        <th>Hóa trị</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" width="604">
+                            <p><strong>"GỐC KH&Ocirc;NG CHỨA OXYGEN &rarr;ĐU&Ocirc;I IDE /aid/"</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Cl</p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-chloride</p>
+                        </td>
+                        <td >
+                            <p>/ˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Br</p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-bromide</p>
+                        </td>
+                        <td >
+                            <p>/ˈbrəʊmaɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/bromide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>S</p>
+                        </td>
+                        <td>
+                            <p>II</p>
+                        </td>
+                        <td>
+                            <p>-sulfide</p>
+                        </td>
+                        <td >
+                            <p>/ˈsʌlfaɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfide.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" width="604">
+                           <p><strong>"GỐC CHỨA NHIỀU OXYGEN → "ĐUÔI ATE  /eɪt/" </strong> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>SO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>II</p>
+                        </td>
+                        <td>
+                            <p>-sulfate</p>
+                        </td>
+                        <td >
+                            <p>/ˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HSO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-hydrogen sulfate</p>
+                            <p>-bisulfate</p>
+                        </td>
+                        <td >
+                            <p>/ˈhaɪdrədʒən sʌlfeɪt/</p>
+                            <p>/baɪˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/bisulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>NO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-nitrate</p>
+                        </td>
+                        <td >
+                            <p>/ˈnaɪtreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitrate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>II</p>
+                        </td>
+                        <td>
+                            <p>-carbonate</p>
+                        </td>
+                        <td >
+                            <p>/ˈkɑːbənət/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CARBONATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HCO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-hydrogen carbonate</p>
+                            <p>-bicarbonate</p>
+                        </td>
+                        <td >
+                            <p>/ˈhaɪdrədʒən ˈkɑːbənət/</p>
+                            <p>/baɪˈ ˈkɑːbənət/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen carbonate.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/bicarbonate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>PO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>III</p>
+                        </td>
+                        <td>
+                            <p>-phosphate</p>
+                        </td>
+                        <td >
+                            <p>/ˈfɒsfeɪt/</p>
+                            <p>/ˈfɑːsfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/phosphate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HPO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>II</p>
+                        </td>
+                        <td>
+                            <p>-hydrogen phosphate</p>
+                        </td>
+                        <td >
+                            <p>/ˈhaɪdrədʒən ˈfɒsfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen phosphate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>H<sub>2</sub>PO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-dihydrogen phosphate</p>
+                        </td>
+                        <td >
+                            <p>/dai ˈhaɪdrədʒən ˈfɒsfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/dihydrogen phosphate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" width="604">
+                            <p><strong>"GỐC KHÔNG CHỨA ÍT OXYGEN → "ĐUÔI ATE  /eɪt/"  </strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>SO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>II</p>
+                        </td>
+                        <td>
+                            <p>-sulfite</p>
+                        </td>
+                        <td >
+                            <p>/ˈsʌlfaɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/sulfite.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>HSO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-hydrogen sulfite</p>
+                        </td>
+                        <td >
+                            <p>/ˈhaɪdrədʒən ˈsʌlfaɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hydrogen sulfite.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>NO<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>I</p>
+                        </td>
+                        <td>
+                            <p>-nitrite</p>
+                        </td>
+                        <td >
+                            <p>/ˈnaɪtraɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/nitrate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Công thức hóa học</th>
+                        <th>Tên IUPAC</th>
+                        <th>Phiên âm</th>
+                        <th>Audio</th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>NaCl</p>
+                        </td>
+                        <td>
+                            <p>Sodium chloride</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SODIUM CHLORIDE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Na<sub>2</sub>SO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Sodium sulfate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>NaNO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Sodium nitrate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈnaɪtreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SODIUM NITRATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>NaNO<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Sodium nitrite</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈnaɪtraɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium nitrite.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Na<sub>2</sub>CO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Sodium carbonate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈkɑːbənət/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/SODIUM CARBONATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>NaHCO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Sodium hydrogen carbonate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈhaɪdrədʒən ˈkɑːbənət/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium hydrogen carbonate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CaCO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Calcium carbonate</p>
+                        </td>
+                        <td>
+                            <p>/ˈk&aelig;lsiəmˈkɑːbənət/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CALCIUM CARBONATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Ca(HCO<sub>3</sub>)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Calcium hydrogen carbonate</p>
+                        </td>
+                        <td>
+                            <p>/ˈk&aelig;lsiəmˈhaɪdrədʒən ˈkɑːbənət/</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Calcium hydrogen carbonate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Ca(H<sub>2</sub>PO<sub>4</sub>)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Calcium dihydrogen phosphate</p>
+                        </td>
+                        <td>
+                            <p>/ˈk&aelig;lsiəm dai ˈhaɪdrədʒən ˈfɒsfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Calcium dihydrogen phosphate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CaHPO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Calcium hydrogen phosphate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈk&aelig;lsiəm ˈhaɪdrədʒən ˈfɒsfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Calcium hydrogen phosphate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>BaCl<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Barium chloride</p>
+                        </td>
+                        <td>
+                            <p>/ ˈbeəriəmˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Barium chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>BaSO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Barium sulfate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈbeəriəmˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Barium sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>AgNO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Silver nitrate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈsɪlvərˈnaɪtreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Silver nitrate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>AgCl</p>
+                        </td>
+                        <td>
+                            <p>Silver chloride</p>
+                        </td>
+                        <td>
+                            <p>/ ˈsɪlvərˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Silver chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CuCl<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Copper (II) chloride</p>
+                        </td>
+                        <td>
+                            <p>/ ˈkɑːpər tu: ˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CuSO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Copper (II) sulfate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈkɑːpər tu: ˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Cu(NO<sub>3</sub>)<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Copper (II) nitrate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈkɑːpər tu:ˈnaɪtreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) nitrate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>FeCl<sub>2</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (II) chloride</p>
+                        </td>
+                        <td>
+                            <p>/ ˈaɪərn tu:ˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (II) chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>FeCl<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (III) chloride</p>
+                        </td>
+                        <td>
+                            <p>/ ˈaɪərn &theta;riː ˈklɔːraɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (III) chloride.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>FeSO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (II) sulfate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈaɪərn tu: ˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (II) sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Iron (III) sulfate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈaɪərn &theta;riː ˈsʌlfeɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Iron (III) sulfate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>KMnO<sub>4</sub></p>
+                        </td>
+                        <td>
+                            <p>Potassium permanganate</p>
+                        </td>
+                        <td>
+                            <p>/ pəˈt&aelig;siəm pəˈm&aelig;ŋɡəˌneɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/POTASSIUM PERMANGANATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>KClO<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Potassium chlorate</p>
+                        </td>
+                        <td>
+                            <p>/ pəˈt&aelig;siəm klɒreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium chlorate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2 id="h0">HỮU CƠ</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p>&nbsp;</p>
+                        </th>
+                        <th>
+                            <p>SỐ LƯỢNG</p>
+                        </th>
+                        <th>
+                            <p>Phi&ecirc;n &acirc;m</p>
+                        </th>
+                        <th>
+                            <p>Audio</p>
+                        </th>	
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>Mono</p>
+                        </td>
+                        <td>
+                            <p>&nbsp;/ˈmɑː noʊ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/MONO.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>2</p>
+                        </td>
+                        <td>
+                            <p>Di</p>
+                        </td>
+                        <td>
+                            <p>/dɑɪ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Di.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>3</p>
+                        </td>
+                        <td>
+                            <p>Tri</p>
+                        </td>
+                        <td>
+                            <p>/trɑɪ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/TRI.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>4</p>
+                        </td>
+                        <td>
+                            <p>Tetra</p>
+                        </td>
+                        <td>
+                            <p>/ˈtetrə/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Tetra.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>5</p>
+                        </td>
+                        <td>
+                            <p>Penta</p>
+                        </td>
+                        <td>
+                            <p>/pentə/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Penta.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>6</p>
+                        </td>
+                        <td>
+                            <p>Hexa</p>
+                        </td>
+                        <td>
+                            <p>/ˈheksə/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Hexa.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="h1">1. ALKANE 
+                <i>/ˈæl.keɪn/ </i>
+                <audio controls>
+                    <source src="sounds/ALKANE.mp3" type="audio/mpeg">
+                </audio>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Số carbon</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n Alk</strong><strong>ane</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C1</p>
+                        </td>
+                        <td>
+                            <p><strong>Meth</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈmiː.&theta;eɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/methane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C2</p>
+                        </td>
+                        <td>
+                            <p><strong>Eth</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈiː.&theta;eɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/ETHANE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C3</p>
+                        </td>
+                        <td>
+                            <p><strong>Prop</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈproʊ.peɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Propane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C4</p>
+                        </td>
+                        <td>
+                            <p><strong>But</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈbjuː.teɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Butane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C5</p>
+                        </td>
+                        <td>
+                            <p><strong>Pent</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈpen teɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Pentane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C6</p>
+                        </td>
+                        <td>
+                            <p><strong>Hex</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈhek.seɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/hexane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C7</p>
+                        </td>
+                        <td>
+                            <p><strong>Hept</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈhep.teɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Heptane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C8</p>
+                        </td>
+                        <td>
+                            <p><strong>Oct</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈɑːk.teɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/OCTANE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C9</p>
+                        </td>
+                        <td>
+                            <p><strong>Non</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈnəʊneɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Nonane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C10</p>
+                        </td>
+                        <td>
+                            <p><strong>Dec</strong><strong>ane</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈdek eɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Decane.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Số carbon</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n gốc Alk</strong><strong>yl</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C1</p>
+                        </td>
+                        <td>
+                            <p><strong>Meth</strong><strong>yl</strong></p>
+                        </td>
+                        <td>
+                            <p>&nbsp;/ˈme&theta;.əl/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/methyl.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C2</p>
+                        </td>
+                        <td>
+                            <p><strong>Eth</strong><strong>yl</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈe&theta;ɪl/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/ETHYL.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C3</p>
+                        </td>
+                        <td>
+                            <p><strong>Prop</strong><strong>yl</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈproʊ pɪl/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Propyl.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C4</p>
+                        </td>
+                        <td>
+                            <p><strong>But</strong><strong>yl</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈbjuː tɪl/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Butyl.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="h2">2. ALKENE   
+                <i>/ˈæl.kiːn/  </i>
+                <audio controls>
+                    <source src="sounds/ALKENE.mp3" type="audio/mpeg">
+                </audio>
+            </h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Số carbon</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n Alk</strong><strong>ene </strong></p>
+				            <p><strong>(t&ecirc;n thay thế)</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C2</p>
+                        </td>
+                        <td>
+                            <p><strong>Eth</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>&nbsp;/ˈe&theta;.iːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/ETHENE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C3</p>
+                        </td>
+                        <td>
+                            <p><strong>Prop</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈprəʊpiːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Propene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C4</p>
+                        </td>
+                        <td>
+                            <p><strong>But</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈbjuːtiːn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/butene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C5</p>
+                        </td>
+                        <td>
+                            <p><strong>Pent</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈpentiːn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Pentene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C6</p>
+                        </td>
+                        <td>
+                            <p><strong>Hex</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈhek.si:n/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Hexene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C7</p>
+                        </td>
+                        <td>
+                            <p><strong>Hept</strong><strong>ene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈhep.ti:n /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Heptene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Số carbon</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n Alk</strong><strong>ene</strong></p>
+				            <p><strong>(t&ecirc;n th&ocirc;ng thường)</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C2</p>
+                        </td>
+                        <td>
+                            <p><strong>Eth</strong><strong>ylene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈe&theta;.ə.liːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/ETHYLENE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C3</p>
+                        </td>
+                        <td>
+                            <p><strong>Prop</strong><strong>ylene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˌproʊ.pɪ.liːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Propylene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            <p>C4</p>
+                        </td>
+                        <td>
+                            <p><strong>&alpha;-Butylene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈ&aelig;l.fə ˈbjuːtɪˌliːn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/α-Butylene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>&beta;-butylene</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈbeɪ.t̬ə ˈbjuːtiːn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/β-butylene.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="h3">3. ALKYNE
+                <i>/ˈæl.kaɪn/</i>
+                <audio controls>
+                    <source src="sounds/ALKYNE.mp3" type="audio/mpeg">
+                </audio>
+            </h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Số carbon</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n Alk</strong><strong>yne </strong></p>
+				            <p><strong>(t&ecirc;n thay thế)</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C2</p>
+                        </td>
+                        <td>
+                            <p><strong>Eth</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>&nbsp;/ ˈiː&theta;aɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Ethyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C3</p>
+                        </td>
+                        <td>
+                            <p><strong>Prop</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈprəʊpaɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Propyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C4</p>
+                        </td>
+                        <td>
+                            <p><strong>But</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈbjuːtaɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Butyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C5</p>
+                        </td>
+                        <td>
+                            <p><strong>Pent</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈpentaɪn /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Pentyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C6</p>
+                        </td>
+                        <td>
+                            <p><strong>Hex</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈhek.saɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Hexyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C7</p>
+                        </td>
+                        <td>
+                            <p><strong>Hept</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ ˈhep.taɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Heptyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C8</p>
+                        </td>
+                        <td>
+                            <p><strong>Oct</strong><strong>yne</strong></p>
+                        </td>
+                        <td>
+                            <p>/ˈɑːk.taɪn/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Octyne.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <h2 id="h4">4. DẪN XUẤT HIĐROCABON </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>CTHH</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>T&ecirc;n IUPAC</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Phi&ecirc;n &acirc;m</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Audio</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>C<sub>2</sub>H<sub>5</sub>OH</p>
+                        </td>
+                        <td>
+                            <p>Ethyl alcohol</p>
+                            <p>Ethanol</p>
+                        </td>
+                        <td>
+                            <p>/ˌiː.&theta;aɪl ˈ&aelig;l.kə.hɑːl/</p>
+                            <p>/ˈe&theta;.ə.na:l/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Ethyl alcohol.mp3" type="audio/mpeg">
+                            </audio>
+                            <audio controls>
+                                <source src="sounds/ethanol.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CH<sub>3</sub> &ndash; O &ndash; CH<sub>3</sub></p>
+                        </td>
+                        <td>
+                            <p>Dimethyl ether</p>
+                        </td>
+                        <td>
+                            <p>/daɪˈmiː&theta;aɪl ˈiː&theta;ə/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium ethylate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>2</sub>H<sub>5</sub>ONa</p>
+                        </td>
+                        <td>
+                            <p>Sodium ethylate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəmˈɛ&theta;ɪˌleɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium ethylate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>2</sub>H<sub>5</sub>OK</p>
+                        </td>
+                        <td>
+                            <p>Potassium ethylate</p>
+                        </td>
+                        <td>
+                            <p>/ pəˈt&aelig;siəm ˈɛ&theta;ɪˌleɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium ethylate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CH<sub>3</sub>COOH</p>
+                        </td>
+                        <td>
+                            <p>Acetic acid</p>
+                        </td>
+                        <td>
+                            <p>/əˌsiː.t̬ɪk ˈ&aelig;s.ɪd/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Acetic acid.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CH<sub>3</sub>COONa</p>
+                        </td>
+                        <td>
+                            <p>Sodium acetate</p>
+                        </td>
+                        <td>
+                            <p>/ˈsəʊdiəm ˈ&aelig;sɪteɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Sodium acetate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CH<sub>3</sub>COOK</p>
+                        </td>
+                        <td>
+                            <p>Potassium acetate</p>
+                        </td>
+                        <td>
+                            <p>/ pəˈt&aelig;siəm ˈ&aelig;sɪteɪt /</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Potassium acetate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>(CH<sub>3</sub>COO)<sub>2</sub>Cu</p>
+                        </td>
+                        <td>
+                            <p>Copper (II) acetate</p>
+                        </td>
+                        <td>
+                            <p>/ ˈkɑːpər tu: ˈ&aelig;sɪteɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Copper (II) acetate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub></p>
+                        </td>
+                        <td>
+                            <p>Ethyl acetate</p>
+                        </td>
+                        <td>
+                            <p>/ˈe&theta;ɪl ˈ&aelig;sɪteɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Ethyl acetate.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>RCOOR&rsquo;</p>
+                        </td>
+                        <td>
+                            <p>Ester</p>
+                        </td>
+                        <td>
+                            <p>/ˈes.tɚ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/ESTER.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></p>
+                        </td>
+                        <td>
+                            <p>Glucose</p>
+                        </td>
+                        <td>
+                            <p>/ˈɡluː.koʊs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Glucose.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></p>
+                        </td>
+                        <td>
+                            <p>Fructose</p>
+                        </td>
+                        <td>
+                            <p>/ˈfrʊk.toʊs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Fructose.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>12</sub>H<sub>22</sub>O<sub>11</sub></p>
+                        </td>
+                        <td>
+                            <p>Saccharose</p>
+                        </td>
+                        <td>
+                            <p>/ˈs&aelig;kəˌrəʊz/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/Saccharose.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>C<sub>12</sub>H<sub>22</sub>O<sub>11</sub></p>
+                        </td>
+                        <td>
+                            <p>Maltose</p>
+                        </td>
+                        <td>
+                            <p>/ˈmɔːl.toʊz/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/MALTOSE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>(C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>)<sub>n</sub></p>
+                        </td>
+                        <td>
+                            <p>Starch</p>
+                        </td>
+                        <td>
+                            <p>/stɑːrtʃ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/starch.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>(C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>)<sub>n</sub></p>
+                        </td>
+                        <td>
+                            <p>Cellulose</p>
+                        </td>
+                        <td>
+                            <p>/ˈsel.jə.loʊs/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CELLULOSE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>Carbohydrate</p>
+                        </td>
+                        <td>
+                            <p>/ˌkɑːr.boʊˈhaɪ.dreɪt/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/CARBOHYDRATE.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>Polymer</p>
+                        </td>
+                        <td>
+                            <p>/ˈpɑː.lɪ.mɚ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/polymer.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td>
+                            <p>Monomer</p>
+                        </td>
+                        <td>
+                            <p>/ˈmɑː.nə.mɚ/</p>
+                        </td>
+                        <td>
+                            <audio controls>
+                                <source src="sounds/monomer.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
